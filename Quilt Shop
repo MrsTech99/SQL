@@ -1,0 +1,28 @@
+CREATE TABLE Quilt_Shop (id INTEGER PRIMARY KEY, name TEXT, color TEXT, stock INTEGER, aisle INTEGER, price INTEGER);
+INSERT INTO Quilt_Shop VALUES (1, 'Fabric', 'multicolor', 100, 1, 3.99), 
+INSERT INTO Quilt_Shop VALUES (2, 'Rotary Cutter', 'blue', 40, 2, 9.99),
+INSERT INTO Quilt_Shop VALUES (3, 'Thread', 'multicolor', 1000, 3, 4.99),
+INSERT INTO Quilt_Shop VALUES (4, 'Iron', 'white' , 200, 4, 50.99), 
+INSERT INTO Quilt_Shop VALUES (5, 'Cutting Mat' , 'green', 47, 2, 34.99),
+INSERT INTO Quilt_Shop VALUES (6, 'Basting Spray', 'clear' , 20, 6, 10.99),
+INSERT INTO Quilt_Shop VALUES (7, 'Bobbins' , 'clear' , 1000 , 6, 5.99), 
+INSERT INTO Quilt_Shop VALUES (8, 'Rulers' , ' orange' , 52 , 2, 23.99), 
+INSERT INTO Quilt_Shop VALUES (9, 'Pins' , 'multicolor', 2000 , 6, 2.99),
+INSERT INTO Quilt_Shop VALUES (10, 'Charm Packs' , 'multicolor' ,  40, 1, 18.99),
+INSERT INTO Quilt_Shop VALUES (11, 'Fat Quarter' , 'red' , 35, 1, 22.99), 
+INSERT INTO Quilt_Shop VALUES (12, 'Batting' , 'white' , 100, 1, 7.99),
+INSERT INTO Quilt_Shop VALUES (13, 'Clips' , 'purple' , 1500, 6, 31.99),
+INSERT INTO Quilt_Shop VALUES (14, 'Scissors', 'silver' ,  27, 2, 12.99),
+INSERT INTO Quilt_Shop VALUES (15, 'Needles' , 'silver' , 800, 6, 8.99);
+
+
+--Display the database ordered by price.
+SELECT * FROM Quilt_Shop
+ORDER BY price;
+
+--Which items are in the aisles 4 and above? 
+SELECT * FROM Quilt_Shop WHERE aisle > 4;
+
+--What is the sum of our stock?
+SELECT SUM(stock) FROM Quilt_Shop; 
+
