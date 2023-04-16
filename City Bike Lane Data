@@ -1,0 +1,58 @@
+--Selected all data to verify it got put in the table I created. 
+
+SELECT * FROM CityBikeLanes LIMIT 10;
+
+--Checking the data to see there were two rows with the same street name but different data from different safety rating technitions. 
+
+SELECT * FROM CityBikeLanes WHERE street = 'Walnut' ;
+
+--Making a CTE to pull from.
+
+WITH safety_average_cte AS (
+SELECT street, AVG(safetyrating) AS 'rating' 
+FROM citybikelanes
+GROUP BY street ) 
+
+SELECT street, 
+rating,
+'safe lane' AS 'label' 
+FROM safety_average_cte
+WHERE rating >=4 ; 
+
+--Trying to see how wide the streets were that were made in 2010 to current.
+
+WITH lane_width_cte AS (
+SELECT street, year_installed , width_feet as 'wide' 
+FROM citybikelanes
+GROUP BY street
+)
+
+SELECT street, year_installed, wide,
+'How Wide' AS 'Label'  
+FROM lane_width_cte
+WHERE year_installed >= 2010; 
+
+--Using a window function to get the average safety rating for the data from the two different technitions. 
+
+SELECT street, safetyrating, 
+AVG(safetyrating) OVER (PARTITION BY street) AS 'Average_safety_rating' 
+FROM CityBikeLanes ;
+
+SELECT street, safetyrating, AVG(safetyrating) 
+FROM CityBikeLanes 
+WHERE street = '2nd' 
+GROUP BY street, safetyrating ; 
+
+SELECT street, safetyrating, 
+AVG(safetyrating) OVER (PARTITION BY street) AS 'Average_safety_rating' 
+FROM CityBikeLanes 
+WHERE street = '2nd' ;
+
+SELECT street, safetyrating,
+AVG(safetyrating) OVER (PARTITION BY street) AS 'Average_safety_rating' ,
+CASE WHEN AVG(safetyrating) OVER (PARTITION BY street) >= 4 THEN 'Leave As-Is'
+WHEN  AVG(safetyrating) OVER (PARTITION BY street) < 2.5 THEN 'Remove'
+ELSE 'Improvements Needed' 
+END AS 'Reccomendation' 
+FROM CityBikeLanes;
+ 
